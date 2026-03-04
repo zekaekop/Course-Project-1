@@ -56,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
                 
                 <?php if ($error): ?>         <!--  display login error if something goes wrong -->
                     <div class="alert alert-danger"><?php echo htmlspecialchars($error); ?></div>
-                <?php endif; ?> <!-- apperantly php ignores html comments -->
+                <?php endif; ?> 
                 
 
                 <ul class="p-0">
