@@ -1,38 +1,34 @@
 <?php
-session_start();
-include "db.php";
 
-include "base.php";
+include "db.php";
 
 ?>
 
-<div class="mt-5">
-    <h1 class="text-center">Login</h1>
-    <h5  class="text-center">into an existing account</h5>
+<div class="nav navbar ">
+    <div class="d-flex justify-content-center w-100">
+        
+        <form method="POST" action="">
+            <div class="card">
 
-    <div class="nav navbar ">
-        <div class="d-flex justify-content-center">
-            <form action="post">
-                <div class="card">
-                    
-                    <ul class="p-0">
-                        <li><a href="">Courses</a></li>
-                        <li><a href="">Category</a></li>
-                        <li><a href="">Users</a></li>
-
-                        <li><a href="">Admin Panel</a></li>
-
-                        <li><a href="">User</a></li> <!-- make it display the users role on the header -->
+                <nav>
+                    <ul class="nav">
+                        <li class="nav-item"><a href="courses.php" class="nav-link text-black">Courses</a></li>
+                        <li class="nav-item"><a href="categories.php" class="nav-link text-black">Category</a></li>
+                        
+                        <?php if (True): ?>
+                            <li class="nav-item">
+                                <a href="admin.php" class="nav-link text-black">Admin Panel</a>
+                            </li>
+                        <?php endif; ?>
 
                     </ul>
+                </nav>
 
-                </div>
-            </form>
-        </div>
+            </div>
+        </form>
+
     </div>
 </div>
-
-
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
