@@ -91,7 +91,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
                 </button>
 
                 <div class="d-flex justify-content-end">
-                    <a href="/register.php">
+                    <a href="login.php">
                         <small  class="text-center">Have an account?</small>
                     </a>
                 </div>

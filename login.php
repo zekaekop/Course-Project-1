@@ -7,6 +7,8 @@ error_reporting(E_ALL);
 
 session_start();
 
+include 'db.php';
+
 $error = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST")
@@ -73,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
                 </button>
 
                 <div class="d-flex justify-content-end">
-                    <a href="/register.php">
+                    <a href="register.php">
                         <small  class="text-center">Don't have an account?</small>
                     </a>
                 </div>
