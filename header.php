@@ -6,7 +6,7 @@ include "db.php";
 
 <div class="nav navbar ">
     <div class="d-flex justify-content-center w-100">
-        
+
         <form method="POST" action="">
             <div class="card">
 
@@ -20,6 +20,8 @@ include "db.php";
                                 <a href="admin.php" class="nav-link text-black">Admin Panel</a>
                             </li>
                         <?php endif; ?>
+
+                        <li class="nav-item"><a href="logout.php" class="nav-link text-black">Logout</a></li>
 
                     </ul>
                 </nav>
