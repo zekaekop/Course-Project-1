@@ -7,12 +7,21 @@ error_reporting(E_ALL);
 
 session_start();
 
+include 'db.php';
+
 $error = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST")
 {
     $name = trim($_POST["name"]);
     $password = trim($_POST["password"]);
+    $email = trim($_POST["email"]);
+
+    $role = "student"; // default as a student when registering
+
+    // to be a teacher, ask a admin to make you one
+
+    // to be admin, you must have access to the db and be superuser
 
     $password_retry = trim($_POST["password_retry"]);
 
@@ -27,8 +36,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
             $failed_message = "This account already exists";
         }else{
             // create the user
-            $query = $pdo->prepare("INSERT INTO course_project.Users (name,password) VALUES(?,?)");
-            $query -> execute([$name , $password]);
+            $query = $pdo->prepare("INSERT INTO course_project.Users (name,password,role,mail) VALUES(?,?,?,?)");
+            $query -> execute([$name , $password, $role, $email]);
 
             $_SESSION['user'] = $user;
             header("Location:home.php");
@@ -74,6 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
                     <li><h4>Username</h4><input type="text" name="name" id=""></li>
                     <li><h4>Email</h4><input type="text" name="email" id=""></li>
                     <li><h4>Password</h4><input type="password" name="password" id=""></li>
+                    <li><h4>Repeat Password</h4><input type="password" name="password_retry" id=""></li>
                 </ul>
 
                 <button class="btn btn-primary w-100" type="submit">
