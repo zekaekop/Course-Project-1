@@ -1,6 +1,13 @@
 <?php
+
+// very important, apperantly this allows debuging
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 session_start();
-include "db.php";
+
+$error = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST")
 {
@@ -9,28 +16,80 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 
     $password_retry = trim($_POST["password_retry"]);
 
-    $query =  $pdo->prepare ("SELECT * FROM course_project.users where name = ?;");
+    $query =  $pdo->prepare ("SELECT * FROM course_project.Users where name = ?;");
     $query -> execute([$name]);
+
     $user = $query-> fetch();
 
-    if($name == $user['name'] && $password == $user['password'] && $password_retry == $password){ 
-        $_SESSION['user'] = $user;
-        header("location: index.php");
+    if($password_retry == $password){ 
+
+        if ($user){ 
+            $failed_message = "This account already exists";
+        }else{
+            // create the user
+            $query = $pdo->prepare("INSERT INTO course_project.Users (name,password) VALUES(?,?)");
+            $query -> execute([$name , $password]);
+
+            $_SESSION['user'] = $user;
+            header("Location:home.php");
+            exit;
+        }
     }
     else{
-        $failed_message = "Wrong username or password";
+        $error = "Passwords dont match!";
     }
     }
 
-include "base.php";
 
 ?>
 
-<h1>Register</h1>
-<small>a account</small>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Project</title>
+   <link rel="stylesheet" href="static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/css/base.css">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+
+</head>
+<body>
 
 
-<small>Have an account?</small>
+<div class="mt-5">
+    <h1 class="text-center">Register</h1>
+    <h5  class="text-center">a account</h5>
+
+    <div class="d-flex justify-content-center">
+        <form method="POST" action="">
+            <div class="card">
+                
+                <?php if ($error): ?>         <!--  display login error if something goes wrong -->
+                    <div class="alert alert-danger"><?php echo htmlspecialchars($error); ?></div>
+                <?php endif; ?> 
+                
+
+                <ul class="p-0">
+                    <li><h4>Username</h4><input type="text" name="name" id=""></li>
+                    <li><h4>Email</h4><input type="text" name="email" id=""></li>
+                    <li><h4>Password</h4><input type="password" name="password" id=""></li>
+                </ul>
+
+                <button class="btn btn-primary w-100" type="submit">
+                    Enter
+                </button>
+
+                <div class="d-flex justify-content-end">
+                    <a href="/register.php">
+                        <small  class="text-center">Have an account?</small>
+                    </a>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>
 
 
 
