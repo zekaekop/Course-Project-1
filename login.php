@@ -77,6 +77,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
                     Enter
                 </button>
 
+                <hr>
+
                 <div class="d-flex justify-content-end">
                     <a href="register.php">
                         <small  class="text-center">Don't have an account?</small>

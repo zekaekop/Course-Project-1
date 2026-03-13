@@ -93,6 +93,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
                     Enter
                 </button>
 
+                <hr>
+
                 <div class="d-flex justify-content-end">
                     <a href="login.php">
                         <small  class="text-center">Have an account?</small>
