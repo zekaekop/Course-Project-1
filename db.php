@@ -11,4 +11,5 @@ try{
 } catch(PDOException $e){
     die("Failed to connect to DB: ". $e->getMessage());
 }
+
 ?>

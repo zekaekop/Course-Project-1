@@ -1,4 +1,10 @@
 
+body{
+    background: linear-gradient(rgb(102, 102, 102),rgb(53, 53, 53));
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
 ul{
     list-style: none;
 }
