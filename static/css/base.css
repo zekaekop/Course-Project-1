@@ -21,6 +21,22 @@
     color: var(--text-color); Makes the entire pages text color
 } */
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+div,
+form,
+li,
+ul,
+nav,
+a,
+p{
+    color: white !important;
+}
+
 body{
     /*background: var(--bg-grad);*/
     background-image: url("../img/forest.jpg");

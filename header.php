@@ -12,16 +12,16 @@ include "db.php";
 
                 <nav>
                     <ul class="nav">
-                        <li class="nav-item"><a href="courses.php" class="nav-link text-black">Courses</a></li>
-                        <li class="nav-item"><a href="categories.php" class="nav-link text-black">Category</a></li>
+                        <li class="nav-item"><a href="courses.php" class="nav-link">Courses</a></li>
+                        <li class="nav-item"><a href="categories.php" class="nav-link">Category</a></li>
                         
                         <?php if (True): ?>
                             <li class="nav-item">
-                                <a href="admin.php" class="nav-link text-black">Admin Panel</a>
+                                <a href="admin.php" class="nav-link">Admin Panel</a>
                             </li>
                         <?php endif; ?>
 
-                        <li class="nav-item"><a href="logout.php" class="nav-link text-black">Logout</a></li>
+                        <li class="nav-item"><a href="logout.php" class="nav-link">Logout</a></li>
 
                     </ul>
                 </nav>
