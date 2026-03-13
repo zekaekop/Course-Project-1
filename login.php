@@ -68,9 +68,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
                 
 
                 <ul class="p-0">
-                    <li><h4>Username</h4><input type="text" name="name" id="" required></li>
-                    <li><h4>Email</h4><input type="text" name="email" id="" required></li>
-                    <li><h4>Password</h4><input type="password" name="password" id="" required></li>
+                    <li><h4 class="text-white">Username</h4><input type="text" name="name" id="" required></li>
+                    <li><h4 class="text-white">Email</h4><input type="text" name="email" id="" required></li>
+                    <li><h4 class="text-white">Password</h4><input type="password" name="password" id="" required></li>
                 </ul>
 
                 <button class="btn btn-primary w-100" type="submit">

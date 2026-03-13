@@ -2,26 +2,32 @@
 /* CSS variables */
 /*NOTE: currently there is only one theme*/
 
-/* Basic gray theme */
+/* Basic glass theme */
 :root{
     --text-color: white;
     --bg-grad: linear-gradient(rgb(78, 78, 78),rgb(34, 34, 34)); /* Background Gradient*/
     --bg-grad-2: linear-gradient(rgb(110, 110, 110),rgb(77, 77, 77)); /* Brighter version of --bg-grad */
     --bg-grad-3: linear-gradient(rgb(150, 150, 150),rgb(110, 110, 110)); /* Brighter version of --bg-grad-2 */
  
-    --border-color: 2px solid rgb(92, 92, 92) ;
+    --border-color: 1px solid rgb(100, 100, 100); /* regular gray */
+    --border-color-gold: 2px solid rgb(150, 120, 40); /* GOLD GOLD GOLD */
+    --border-color-blue: 2px solid rgb(103, 168, 206);
 
     --shadow: 0.1rem 0.1rem 0.1rem rgba(0, 0, 0, 0.5); /* Default shadow, this is very light and thin.*/
+    --shadow-strong: 0.2rem 0.2rem 0.3rem rgba(0, 0, 0, 1);
 }
 
-*{
-    color: var(--text-color); /* Makes the entire pages text color */
-}
+/* *{ Nevermind this was a bad idea
+    color: var(--text-color); Makes the entire pages text color
+} */
 
 body{
-    background: var(--bg-grad);
+    /*background: var(--bg-grad);*/
+    background-image: url("../img/forest.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed; /* This will help the background gradient fullscreen */
+    background-size: cover;
+    background-position: center;
 }
 
 ul{
@@ -31,10 +37,29 @@ ul{
 .card{
     padding: 1rem;
     display: inline-block;
-    border-radius: 1rem;
+
+    border-radius: 0.5rem;
     border: var(--border-color);
-    background: var(--bg-grad-2);
     box-shadow: var(--shadow);
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+
+    scale: 1;
+
+    transition: all ease-in-out 0.2s ;
+}
+
+.card:hover{
+    padding: 1rem;
+    display: inline-block;
+
+    border-radius: 1rem;
+    border: var(--border-color-blue);
+    background-color: rgba(0, 0, 0, 0.5);
+    box-shadow: var(--shadow-strong);
+    backdrop-filter: blur(5px);
+
+    scale: 1.05;
 }
 
 input{
