@@ -1,8 +1,27 @@
 
+/* CSS variables */
+/*NOTE: currently there is only one theme*/
+
+/* Basic gray theme */
+:root{
+    --text-color: white;
+    --bg-grad: linear-gradient(rgb(78, 78, 78),rgb(34, 34, 34)); /* Background Gradient*/
+    --bg-grad-2: linear-gradient(rgb(110, 110, 110),rgb(77, 77, 77)); /* Brighter version of --bg-grad */
+    --bg-grad-3: linear-gradient(rgb(150, 150, 150),rgb(110, 110, 110)); /* Brighter version of --bg-grad-2 */
+ 
+    --border-color: 2px solid rgb(92, 92, 92) ;
+
+    --shadow: 0.1rem 0.1rem 0.1rem rgba(0, 0, 0, 0.5); /* Default shadow, this is very light and thin.*/
+}
+
+*{
+    color: var(--text-color); /* Makes the entire pages text color */
+}
+
 body{
-    background: linear-gradient(rgb(102, 102, 102),rgb(53, 53, 53));
+    background: var(--bg-grad);
     background-repeat: no-repeat;
-    background-attachment: fixed;
+    background-attachment: fixed; /* This will help the background gradient fullscreen */
 }
 
 ul{
@@ -13,7 +32,9 @@ ul{
     padding: 1rem;
     display: inline-block;
     border-radius: 1rem;
-    border: 2px solid black ;
+    border: var(--border-color);
+    background: var(--bg-grad-2);
+    box-shadow: var(--shadow);
 }
 
 input{

@@ -52,15 +52,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 
 
 <div class="mt-5">
-    <h1 class="text-center">Login</h1>
-    <h5  class="text-center">into an existing account</h5>
 
     <div class="d-flex justify-content-center">
         <form method="POST" action="">
             <div class="card">
+
+                <h1 class="text-center text-white">Login</h1>
+                <h5  class="text-center text-white">into an existing account</h5>
                 
                 <?php if ($error): ?>         <!--  display login error if something goes wrong -->
-                    <div class="alert alert-danger"><?php echo htmlspecialchars($error); ?></div>
+                    <div class="alert alert-danger text-white"><?php echo htmlspecialchars($error); ?></div>
                 <?php endif; ?> 
                 
 
