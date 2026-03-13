@@ -60,6 +60,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
                 <h1 class="text-center text-white">Login</h1>
                 <h5  class="text-center text-white">into an existing account</h5>
                 
+                <hr>
+
                 <?php if ($error): ?>         <!--  display login error if something goes wrong -->
                     <div class="alert alert-danger text-white"><?php echo htmlspecialchars($error); ?></div>
                 <?php endif; ?> 
