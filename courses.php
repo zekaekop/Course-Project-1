@@ -22,7 +22,9 @@ if (isset($_GET['search'])){
     $query -> execute(["%$search%", "%$search%", "%$search%", "%$search%", "%$search%", "%$search%"]);
     $courses = $query -> fetchAll();
 } else {
-    $query = $pdo -> query("SELECT * FROM course_project.courses ");
+    $query = $pdo -> query("SELECT * FROM course_project.courses co 
+                                            JOIN course_project.categories ca ON co.category = ca.category_id 
+                                            JOIN course_project.teachers t ON co.teacher = t.teacher_id ");
     $courses = $query -> fetchAll();
 }
 ?>
@@ -53,16 +55,18 @@ if (isset($_GET['search'])){
                         <th>Teacher</th>
                         <th>Price</th>
                         <th>Starting Date</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
             <?php foreach($courses as $course): ?>
                 <tr>
                     <td><?= $course['course_name'] ?></td>
                     <td><?= $course['description'] ?></td>
-                    <td><?= $course['category'] ?></td>
-                    <td><?= $course['teacher'] ?></td>
+                    <td><?= $course['category_name'] ?></td>
+                    <td><?= $course['teacher_name'] ?></td>
                     <td><?= $course['price'] ?></td>
                     <td><?= $course['starting_date'] ?></td>
+                    <td><button class="btn btn-primary p-0" style="border-radius: 0.5rem;">Sign Up</button></td>
                 </tr>
             <?php endforeach ?>
             </table>
