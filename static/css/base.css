@@ -82,6 +82,11 @@ ul{
     scale: 1.05;
 }
 
+.header-custom{
+    top: -0.1rem;
+    border-radius: 0 0 0.5rem 0.5rem !important
+}
+
 .text-selected{
     border-radius: 1rem;
     border: 2px rgba(0, 0, 0, 0);

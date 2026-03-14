@@ -9,7 +9,7 @@ include "db.php";
         <div class="w-100">
 
             <form method="POST" action="">
-                <div class="card w-100">
+                <div class="card  header-custom w-100">
 
                     <nav class="d-flex">
                         <ul class="nav w-100">
