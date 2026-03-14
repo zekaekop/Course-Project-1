@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     $email = trim($_POST["email"]);
     $password = trim($_POST["password"]);
 
-    $query =  $pdo->prepare ("SELECT * FROM course_project.Users where name = ? OR mail = ?;");
+    $query =  $pdo->prepare ("SELECT * FROM course_project.users where name = ? OR mail = ?;");
     $query -> execute([$name, $email]);
     $user = $query-> fetch();
 

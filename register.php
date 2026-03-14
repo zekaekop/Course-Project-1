@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 
     $password_retry = trim($_POST["password_retry"]);
 
-    $query =  $pdo->prepare ("SELECT * FROM course_project.Users where name = ?;");
+    $query =  $pdo->prepare ("SELECT * FROM course_project.users where name = ?;");
     $query -> execute([$name]);
 
     $user = $query-> fetch();
@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
             $failed_message = "This account already exists";
         }else{
             // create the user
-            $query = $pdo->prepare("INSERT INTO course_project.Users (name,password,role,mail) VALUES(?,?,?,?)");
+            $query = $pdo->prepare("INSERT INTO course_project.users (name,password,role,mail) VALUES(?,?,?,?)");
             $query -> execute([$name , $password, $role, $email]);
 
             $_SESSION['user'] = $user;
