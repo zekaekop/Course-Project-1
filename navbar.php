@@ -13,6 +13,7 @@ include "db.php";
 
                     <nav class="d-flex">
                         <ul class="nav w-100">
+                            <li class="nav-item"><a href="home.php" class="nav-link text-selected">Home</a></li>
                             <li class="nav-item"><a href="courses.php" class="nav-link text-selected">Courses</a></li>
                             <li class="nav-item"><a href="categories.php" class="nav-link text-selected">Category</a></li>
                             
