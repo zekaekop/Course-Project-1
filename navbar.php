@@ -15,8 +15,9 @@ include "db.php";
                         <ul class="nav w-100">
                             <li class="nav-item"><a href="home.php" class="nav-link text-selected">Home</a></li>
                             <li class="nav-item"><a href="courses.php" class="nav-link text-selected">Courses</a></li>
-                            <li class="nav-item"><a href="categories.php" class="nav-link text-selected">Category</a></li>
-                            
+                            <li class="nav-item"><a href="categories.php" class="nav-link text-selected">Categories</a></li>
+                            <li class="nav-item"><a href="teachers.php" class="nav-link text-selected">Teachers</a></li>
+
                             <?php if (True): ?>
                                 <li class="nav-item">
                                     <a href="admin.php" class="nav-link text-selected">Admin Panel</a>
