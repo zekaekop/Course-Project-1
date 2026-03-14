@@ -13,7 +13,7 @@ if (isset($_GET[$search])){ # Search list
 } else { # Regular list
     $query = $pdo -> query("SELECT * FROM course_project.account_data ad 
                                             JOIN course_project.courses c ON ad.course_id = c.course_id # apperantly i have to call user_id not user_name
-                                            JOIN course_project.users u ON ad.user_id = u.user_id ");  # after that i can just call any collumb in that table
+                                            JOIN course_project.users u ON ad.user_id = u.user_id ");  # after that i can just call any column in that table
     
     $account_data = $query -> fetchAll();
 }
