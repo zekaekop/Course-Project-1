@@ -26,7 +26,7 @@ $user = $_SESSION['user'];
                             <li class="nav-item"><a href="categories.php" class="nav-link text-selected">Categories</a></li>
                             <li class="nav-item"><a href="teachers.php" class="nav-link text-selected">Teachers</a></li>
 
-                            <?php if (True): ?>
+                            <?php if ($user['role'] == "admin"): ?>
                                 <li class="nav-item">
                                     <a href="admin.php" class="nav-link text-selected">Admin Panel</a>
                                 </li>
