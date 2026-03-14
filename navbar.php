@@ -2,6 +2,14 @@
 
 include "db.php";
 
+# If user isnt logged in, they cant see the website
+if(!isset ($_SESSION['user'])){
+    header("location: login.php");
+    exit;
+}
+
+$user = $_SESSION['user'];
+
 ?>
 
 <div class="container">
@@ -24,7 +32,10 @@ include "db.php";
                                 </li>
                             <?php endif; ?>
 
+                            <li class="nav-item ms-auto"><span class="nav-link text-white"><?= $user['role'] ?></span></li>
+
                             <li class="nav-item mt-lg-0 ms-lg-auto">
+                                
                                 <a href="logout.php" class="nav-link text-selected w-100 w-lg-auto">
                                     Logout
                                 </a>
