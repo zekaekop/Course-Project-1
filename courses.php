@@ -22,7 +22,7 @@ if (isset($_GET['search'])){
     $query -> execute(["%$search%", "%$search%", "%$search%", "%$search%", "%$search%", "%$search%"]);
     $courses = $query -> fetchAll();
 } else {
-    $query = $pdo -> prepare("SELECT * FROM courses");
+    $query = $pdo -> query("SELECT * FROM course_project.courses ");
     $courses = $query -> fetchAll();
 }
 ?>
