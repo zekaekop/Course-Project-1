@@ -30,48 +30,44 @@ if (isset($_GET['search'])){
 <div class="container mt-5">
     <h1 class="text-center">Current Courses</h1>
 
-        <form action="post">
+        <div class="card w-100 mt-3 text-center">
+            <h3>Welcome <?= $user['name'] ?></h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta ex pariatur iure quas tenetur accusantium est laudantium id expedita, autem ea porro quos officiis deleniti, cumque error neque exercitationem praesentium?</p>
+        </div>
 
-            <div class="card w-100 mt-3 text-center">
-                <h3>Welcome <?= $user['name'] ?></h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta ex pariatur iure quas tenetur accusantium est laudantium id expedita, autem ea porro quos officiis deleniti, cumque error neque exercitationem praesentium?</p>
-            </div>
+        <br>
 
-            <br>
+        <?php include('search.php'); ?>
 
-            <?php include('search.php'); ?>
+        <br>
 
-            <br>
+        <div class="card w-100 mt-3">
+            <h3 class="text-center">Available Courses</h3>
 
-            <div class="card w-100 mt-3">
-                <h3 class="text-center">Available Courses</h3>
-
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Course</th>
-                            <th>Description</th>
-                            <th>Category</th>
-                            <th>Teacher</th>
-                            <th>Price</th>
-                            <th>Starting Date</th>
-                        </tr>
-                    </thead>
-                <?php foreach($courses as $course): ?>
+            <table>
+                <thead>
                     <tr>
-                        <td><?= $course['course_name'] ?></td>
-                        <td><?= $course['description'] ?></td>
-                        <td><?= $course['category'] ?></td>
-                        <td><?= $course['teacher'] ?></td>
-                        <td><?= $course['price'] ?></td>
-                        <td><?= $course['starting_date'] ?></td>
+                        <th>Course</th>
+                        <th>Description</th>
+                        <th>Category</th>
+                        <th>Teacher</th>
+                        <th>Price</th>
+                        <th>Starting Date</th>
                     </tr>
-                <?php endforeach ?>
-                </table>
+                </thead>
+            <?php foreach($courses as $course): ?>
+                <tr>
+                    <td><?= $course['course_name'] ?></td>
+                    <td><?= $course['description'] ?></td>
+                    <td><?= $course['category'] ?></td>
+                    <td><?= $course['teacher'] ?></td>
+                    <td><?= $course['price'] ?></td>
+                    <td><?= $course['starting_date'] ?></td>
+                </tr>
+            <?php endforeach ?>
+            </table>
 
-            </div>
-
-        </form>
+        </div>
 </div>
 
 
