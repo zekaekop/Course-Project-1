@@ -6,9 +6,16 @@ include "base.php";
 
 $user = $_SESSION['user'];
 $search = '';
-if (isset($_GET[$search])){
+if (isset($_GET[$search])){ # Search list
     $query = $pdo -> prepare("SELECT * FROM course_project.account_data WHERE name LIKE ? OR course_name LIKE ?");
-    $courses = $query -> execute("%$search%","%$search%");
+    $query -> execute("%$search%","%$search%");
+    $account_data = $query -> fetchAll();
+} else { # Regular list
+    $query = $pdo -> query("SELECT * FROM course_project.account_data ad 
+                                            JOIN course_project.courses c ON ad.course_id = c.course_id # apperantly i have to call user_id not user_name
+                                            JOIN course_project.users u ON ad.user_id = u.user_id ");  # after that i can just call any collumb in that table
+    
+    $account_data = $query -> fetchAll();
 }
 
 ?>
