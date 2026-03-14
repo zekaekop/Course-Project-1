@@ -5,6 +5,11 @@ include "db.php";
 include "base.php";
 
 $user = $_SESSION['user'];
+$search = '';
+if (isset($_GET[$search])){
+    $query = $pdo -> prepare("SELECT * FROM course_project.account_data WHERE name LIKE ? OR course_name LIKE ?");
+    $courses = $query -> execute("%$search%","%$search%");
+}
 
 ?>
 
@@ -29,11 +34,15 @@ $user = $_SESSION['user'];
                     <th>Assigned Date</th>
                 </tr>
             </thead>
+        <?php foreach($account_data as $signedup_courses): ?>
         <tr>
-            <td>bla course</td>
-            <td>eko</td>
-            <td>today</td>
+            <td><?= $signedup_courses['course_name'] ?></td>
+            <td><?= $signedup_courses['description'] ?></td>
+            <td><?= $signedup_courses['name'] ?></td>
+            <td><?= $signedup_courses['account_data_date'] ?></td>
         </tr>
+        <?php endforeach; ?>
+
         </table>
 
     </div>
