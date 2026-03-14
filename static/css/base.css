@@ -50,6 +50,21 @@ ul{
     list-style: none;
 }
 
+table{
+    border-collapse: separate;
+}
+
+th{
+    padding: 0.5rem !important;
+    border: var(--border-color);
+    border-radius: 0.5rem 0.5rem 0rem 0rem !important;
+}
+
+td{
+    border: var(--border-color);
+    text-align: center;
+}
+
 .container{
     max-width: 800px;
 }
