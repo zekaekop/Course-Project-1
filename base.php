@@ -24,7 +24,7 @@ session_start();
 <body>
 
     <?php
-    include "header.php";
+    include "navbar.php";
     ?>
     
 </body>
