@@ -30,6 +30,37 @@ if (isset($_GET['search'])){
                                             JOIN course_project.teachers t ON co.teacher = t.teacher_id ");
     $courses = $query -> fetchAll();
 }
+
+# enlisting into a course
+if ($_SERVER["REQUEST_METHOD"] == "POST"){
+    
+    // check if user is logged in
+    if (!isset($_SESSION['user'])) {
+        header("Location: login.php");
+        exit();
+    }
+    
+    $course_id = $_POST['course_id'];
+    $user = $_SESSION['user'];
+    $user_id = $user['user_id'];
+
+    // Check if already enrolled
+    $checkEnrollment = $pdo->prepare("SELECT * FROM course_project.account_data WHERE course_id = ? AND user_id = ?");
+    $checkEnrollment->execute([$course_id, $user_id]);
+    
+    if ($checkEnrollment->rowCount() > 0) {
+        header("Location: course.php");
+    }
+    
+    $currentDateTime = date('Y-m-d H:i:s'); // this is the mysql format i think
+    
+
+    $query = $pdo->prepare("INSERT INTO course_project.account_data (course_id, user_id, account_data_date) VALUES (?, ?, ?)");
+    $result = $query->execute([$course_id, $user_id, $currentDateTime]);
+
+    header("Location: home.php");
+}
+
 ?>
 
 <div class="container mt-5">
@@ -63,13 +94,17 @@ if (isset($_GET['search'])){
                 </thead>
             <?php foreach($courses as $course): ?>
                 <tr>
-                    <td><?= $course['course_name'] ?></td>
-                    <td><?= $course['description'] ?></td>
-                    <td><?= $course['category_name'] ?></td>
-                    <td><?= $course['teacher_name'] ?></td>
-                    <td><?= $course['price'] ?></td>
-                    <td><?= $course['starting_date'] ?></td>
-                    <td><button class="btn btn-primary p-0" style="border-radius: 0.5rem;">Sign Up</button></td>
+                    <form method="POST">
+                        <td><?= $course['course_name'] ?></td>
+                        <td><?= $course['description'] ?></td>
+                        <td><?= $course['category_name'] ?></td>
+                        <td><?= $course['teacher_name'] ?></td>
+                        <td><?= $course['price'] ?></td>
+                        <td><?= $course['starting_date'] ?></td>
+
+                        <input type="hidden" name="course_id" value="<?= $course['course_id'] ?>"> <!-- hidden ID, used in enlisting courses-->
+                        <td><button class="btn btn-primary p-0" style="border-radius: 0.5rem;" type="submit" name="submit">Sign Up</button></td>
+                    </form>
                 </tr>
             <?php endforeach ?>
             </table>
