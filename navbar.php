@@ -28,7 +28,7 @@ $user = $_SESSION['user'];
 
                             <?php if ($user['role'] == "admin"): ?>
                                 <li class="nav-item">
-                                    <a href="admin.php" class="nav-link text-selected">Admin Panel</a>
+                                    <a href="admin_panel.php" class="nav-link text-selected">Admin Panel</a>
                                 </li>
                             <?php endif; ?>
 
