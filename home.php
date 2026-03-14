@@ -14,19 +14,31 @@ $user = $_SESSION['user'];
     <div class="d-flex justify-content-center">
         <form action="post">
 
-            <div class="card w-100 text-center">
+            <div class="card w-100 mt-3 text-center">
                 <h3>Welcome <?= $user['name'] ?></h3>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta ex pariatur iure quas tenetur accusantium est laudantium id expedita, autem ea porro quos officiis deleniti, cumque error neque exercitationem praesentium?</p>
             </div>
 
             <br>
 
-            <div class="card">
-                our best courses
-            </div>
+            <div class="card w-100 mt-3">
+                <h3 class="text-center">Enlisted Courses</h3>
 
-            <div class="card">
-                create a course (teacher, admin only!)
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Course</th>
+                            <th>User</th>
+                            <th>Assigned Date</th>
+                        </tr>
+                    </thead>
+                <tr>
+                    <td>bla course</td>
+                    <td>eko</td>
+                    <td>today</td>
+                </tr>
+                </table>
+
             </div>
 
         </form>
