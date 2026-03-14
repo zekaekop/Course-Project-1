@@ -46,7 +46,7 @@ if (isset($_GET['search'])){
         <div class="card w-100 mt-3">
             <h3 class="text-center">Available Courses</h3>
 
-            <table class="text-center">
+            <table class="text-center w-100">
                 <thead>
                     <tr>
                         <th>Course</th>
