@@ -11,13 +11,16 @@ $search = '';
 # if search isnt emty than do a filter on the table and get results, else just get all data from the table
 if (isset($_GET['search'])){
     $search =   trim($_GET['search']);
-    $query = $pdo -> prepare("SELECT * FROM courses WHERE 
-                                                course_name LIKE ? OR 
-                                                description LIKE ? OR 
-                                                category LIKE ? OR 
-                                                teacher LIKE ? OR 
-                                                price LIKE ? OR 
-                                                starting_date LIKE ?");
+    $query = $pdo->prepare("SELECT * FROM course_project.courses co
+                            JOIN course_project.categories ca ON co.category = ca.category_id 
+                            JOIN course_project.teachers t ON co.teacher = t.teacher_id 
+                            WHERE 
+                            co.course_name LIKE ? OR 
+                            co.description LIKE ? OR 
+                            ca.category_name LIKE ? OR
+                            t.teacher_name LIKE ? OR
+                            co.price LIKE ? OR 
+                            co.starting_date LIKE ?");
     
     $query -> execute(["%$search%", "%$search%", "%$search%", "%$search%", "%$search%", "%$search%"]);
     $courses = $query -> fetchAll();
