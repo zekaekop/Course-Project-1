@@ -32,7 +32,7 @@ if (isset($_GET[$search])){ # Search list
     <div class="card w-100 mt-3">
         <h3 class="text-center">Enlisted Courses</h3>
 
-        <table>
+        <table class="text-center">
             <thead>
                 <tr>
                     <th>Course Name</th>
