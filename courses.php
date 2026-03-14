@@ -30,13 +30,16 @@ if (isset($_GET['search'])){
 <div class="container mt-5">
     <h1 class="text-center">Current Courses</h1>
 
-    <div class="d-flex justify-content-center">
         <form action="post">
 
             <div class="card w-100 mt-3 text-center">
                 <h3>Welcome <?= $user['name'] ?></h3>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta ex pariatur iure quas tenetur accusantium est laudantium id expedita, autem ea porro quos officiis deleniti, cumque error neque exercitationem praesentium?</p>
             </div>
+
+            <br>
+
+            <?php include('search.php'); ?>
 
             <br>
 
@@ -51,20 +54,24 @@ if (isset($_GET['search'])){
                             <th>Category</th>
                             <th>Teacher</th>
                             <th>Price</th>
-                            <th>Starting Date2</th>
+                            <th>Starting Date</th>
                         </tr>
                     </thead>
-                <tr>
-                    <td>bla course</td>
-                    <td>eko</td>
-                    <td>today</td>
-                </tr>
+                <?php foreach($courses as $course): ?>
+                    <tr>
+                        <td><?= $course['course_name'] ?></td>
+                        <td><?= $course['description'] ?></td>
+                        <td><?= $course['category'] ?></td>
+                        <td><?= $course['teacher'] ?></td>
+                        <td><?= $course['price'] ?></td>
+                        <td><?= $course['starting_date'] ?></td>
+                    </tr>
+                <?php endforeach ?>
                 </table>
 
             </div>
 
         </form>
-    </div>
 </div>
 
 
