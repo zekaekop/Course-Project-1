@@ -152,35 +152,38 @@ function _auth_user(){
 <div class="container mt-5">
     <h1 class="text-center">Current Courses</h1>
 
-        <form method="POST">
-            <div class="card w-100 mt-3">
-                    <input class="w-100" type="text" name="course_name" placeholder="Course Name Ex. Algebra 101 ..." id="" required>
-                    <br>
-                    <textarea class="w-100" name="description" placeholder="Description Ex. Solve Complex Math problems ..." id="" required></textarea>
-                    <br>
+        <!-- this should only be visiable to teachers and admins -->
+         <?php if($user['role'] == "teacher" || $user['role'] == "admin"): ?>
+            <form method="POST">
+                <div class="card w-100 mt-3">
+                        <input class="w-100" type="text" name="course_name" placeholder="Course Name Ex. Algebra 101 ..." id="" required>
+                        <br>
+                        <textarea class="w-100" name="description" placeholder="Description Ex. Solve Complex Math problems ..." id="" required></textarea>
+                        <br>
 
-                    <div class="d-flex justify-content-between">
-                    <select name="category" id="" required>
-                        <?php foreach($categories as $category): ?>
-                            <option value="<?=$category['category_id'] ?>"><?= $category['category_name'] ?></option>
-                        <?php endforeach ?>
-                    </select>
-                    <select name="teacher" id="" required>
-                        <?php foreach($teachers as $teacher): ?>
-                            <option value="<?=$teacher['teacher_id'] ?>"><?= $teacher['teacher_name'] ?></option>
-                        <?php endforeach ?>
-                    </select>
-                    
-                    <input type="number" name="price" placeholder="Course Price ..." id="" required>
-                    <input type="date" name="course_starting_date" id="" required>
-                    <input type="time" name="course_starting_time" id="" required>
-                    </div>
-            </div>
+                        <div class="d-flex justify-content-between">
+                        <select name="category" id="" required>
+                            <?php foreach($categories as $category): ?>
+                                <option value="<?=$category['category_id'] ?>"><?= $category['category_name'] ?></option>
+                            <?php endforeach ?>
+                        </select>
+                        <select name="teacher" id="" required>
+                            <?php foreach($teachers as $teacher): ?>
+                                <option value="<?=$teacher['teacher_id'] ?>"><?= $teacher['teacher_name'] ?></option>
+                            <?php endforeach ?>
+                        </select>
+                        
+                        <input type="number" name="price" placeholder="Course Price ..." id="" required>
+                        <input type="date" name="course_starting_date" id="" required>
+                        <input type="time" name="course_starting_time" id="" required>
+                        </div>
+                </div>
 
-            <?php if($user['role'] != "teacher"): ?>
-                <button class="card p-3 mt-3 text-white w-100" style="border-radius: 0.5rem;" type="submit" name="createcourse_submit">Create a course</button>
-            <?php endif ?>
-        </form>
+                <?php if($user['role'] != "teacher"): ?>
+                    <button class="card p-3 mt-3 text-white w-100" style="border-radius: 0.5rem;" type="submit" name="createcourse_submit">Create a course</button>
+                <?php endif ?>
+            </form>
+        <?php endif ?>
 
         <hr>
 
@@ -214,14 +217,16 @@ function _auth_user(){
                         
 
                         <td>
-                            <?php if($user['role'] != "teacher"): ?>
+                            <!-- The people need a student account to get enrolled into courses -->
+                            <?php if($user['role'] != "teacher" && $user['role'] != "admin"): ?>
                                 <form method="POST">
                                     <input type="hidden" name="course_id" value="<?= $course['course_id'] ?>"> <!-- hidden ID, used in enlisting courses-->
-                                    <button class="btn btn-primary p-0" style="border-radius: 0.5rem;" type="submit" name="signup_submit">Sign Up</button>
+                                    <button class="btn btn-primary p-0 w-100" style="border-radius: 0.5rem;" type="submit" name="signup_submit">Sign Up</button>
                                 </form>
+                            <?php else: ?>
+                                <button class="btn btn-primary p-0 w-100" style="border-radius: 0.5rem;" data-bs-toggle="modal" data-bs-target="#deletemodal<?= $course['course_id'] ?>">Delete</button>
+                                <button class="btn btn-primary p-0 w-100" style="border-radius: 0.5rem;" data-bs-toggle="modal" data-bs-target="#editmodal<?= $course['course_id'] ?>">Edit</button>
                             <?php endif ?>
-                            <button class="btn btn-primary p-0" style="border-radius: 0.5rem;" data-bs-toggle="modal" data-bs-target="#deletemodal<?= $course['course_id'] ?>">Delete</button>
-                            <button class="btn btn-primary p-0" style="border-radius: 0.5rem;" data-bs-toggle="modal" data-bs-target="#editmodal<?= $course['course_id'] ?>">Edit</button>
                         </td>
 
                 </tr>

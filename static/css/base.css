@@ -85,7 +85,6 @@ td{
 
 .card:hover{
     padding: 1rem;
-    display: inline-block;
 
     border-radius: 1rem;
     border: var(--border-color-blue);

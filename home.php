@@ -44,8 +44,6 @@ if (isset($_GET[$search])){ # Search list
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta ex pariatur iure quas tenetur accusantium est laudantium id expedita, autem ea porro quos officiis deleniti, cumque error neque exercitationem praesentium?</p>
     </div>
 
-    <br>
-
     <div class="card w-100 mt-3">
         <h3 class="text-center">Enlisted Courses</h3>
 
