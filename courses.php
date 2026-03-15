@@ -24,6 +24,14 @@ if (isset($_GET['search'])){
     
     $query -> execute(["%$search%", "%$search%", "%$search%", "%$search%", "%$search%", "%$search%"]);
     $courses = $query -> fetchAll();
+
+    if($user['role'] == "teacher" || $user['role' == "admin"]){
+        $query = $pdo -> query("SELECT * FROM course_project.categories");
+        $categories = $query -> fetchAll();
+
+        $query = $pdo -> query("SELECT * FROM course_project.teachers");
+        $teachers = $query -> fetchAll();
+    }
 } else { # fetches courses, teachers, and categories tables
     $query = $pdo -> query("SELECT * FROM course_project.courses co 
                                             JOIN course_project.categories ca ON co.category = ca.category_id 
