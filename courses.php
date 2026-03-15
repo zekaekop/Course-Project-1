@@ -180,9 +180,8 @@ function _auth_user(){
                         </div>
                 </div>
 
-                <?php if($user['role'] != "teacher"): ?>
-                    <button class="card p-3 mt-3 text-white w-100" style="border-radius: 0.5rem;" type="submit" name="createcourse_submit">Create a course</button>
-                <?php endif ?>
+                <button class="card p-3 mt-3 text-white w-100" style="border-radius: 0.5rem;" type="submit" name="createcourse_submit">Create course</button>
+
             </form>
         <?php endif ?>
 
@@ -318,7 +317,6 @@ function _auth_user(){
             </div>
             </div>
         </div>
-
     </div>
 <?php endforeach ?>
 
