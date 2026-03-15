@@ -106,11 +106,13 @@ function _auth_user(){
     <h1 class="text-center">Current Courses</h1>
 
         <form method="POST">
-            <div class="card w-100 mt-3 text-center">
-                <div class="d-flex">
-                    <input type="text" name="course_name" placeholder="Course Name Ex. Algebra 101 ..." id="">
-                    <textarea name="description" placeholder="Description Ex. Solve Complex Math problems ..." id=""></textarea>
-                    
+            <div class="card w-100 mt-3">
+                    <input class="w-100" type="text" name="course_name" placeholder="Course Name Ex. Algebra 101 ..." id="">
+                    <br>
+                    <textarea class="w-100" name="description" placeholder="Description Ex. Solve Complex Math problems ..." id=""></textarea>
+                    <br>
+
+                    <div class="d-flex justify-content-between">
                     <select name="category" id="">
                         <?php foreach($categories as $category): ?>
                             <option value="<?=$category['category_id'] ?>"><?= $category['category_name'] ?></option>
@@ -125,8 +127,7 @@ function _auth_user(){
                     <input type="number" name="price" placeholder="Course Price ..." id="">
                     <input type="date" name="course_starting_date" id="">
                     <input type="time" name="course_starting_time" id="">
-
-                </div>
+                    </div>
             </div>
 
             <?php if($user['role'] != "teacher"): ?>
