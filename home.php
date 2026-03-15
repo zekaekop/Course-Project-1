@@ -9,6 +9,8 @@ $search = '';
 
 $user_id = $user['user_id'];
 
+$theres_data = False;
+
 if (isset($_GET[$search])){ # Search list
     $query = $pdo -> prepare("SELECT * FROM course_project.account_data WHERE name LIKE ? OR course_name LIKE ? OR name LIKE $username ");
     $query -> execute("%$search%","%$search%");
@@ -20,6 +22,12 @@ if (isset($_GET[$search])){ # Search list
                                             WHERE ad.user_id LIKE $user_id ");  
     
     $account_data = $query -> fetchAll();
+
+    if (!empty($account_data)) {
+        $theres_data = True;
+    } else{
+        $theres_data = False;
+    }
 }
 
 ?>
@@ -44,22 +52,28 @@ if (isset($_GET[$search])){ # Search list
         <hr>
 
         <table class="text-center w-100">
-            <thead>
+            <?php if ($theres_data == True): ?>
+                <thead>
+                    <tr>
+                        <th>Course Name</th>
+                        <th>Course Description</th>
+                        <th>User</th>
+                        <th>Assigned Date</th>
+                    </tr>
+                </thead>
+
+            
+                <?php foreach($account_data as $signedup_courses): ?>
                 <tr>
-                    <th>Course Name</th>
-                    <th>Course Description</th>
-                    <th>User</th>
-                    <th>Assigned Date</th>
+                    <td><?= $signedup_courses['course_name'] ?></td>
+                    <td><?= $signedup_courses['description'] ?></td>
+                    <td><?= $signedup_courses['name'] ?></td>
+                    <td><?= $signedup_courses['account_data_date'] ?></td>
                 </tr>
-            </thead>
-        <?php foreach($account_data as $signedup_courses): ?>
-        <tr>
-            <td><?= $signedup_courses['course_name'] ?></td>
-            <td><?= $signedup_courses['description'] ?></td>
-            <td><?= $signedup_courses['name'] ?></td>
-            <td><?= $signedup_courses['account_data_date'] ?></td>
-        </tr>
-        <?php endforeach; ?>
+                <?php endforeach; ?>
+            <?php else: ?>
+                    <h2 class="text-center w-100"><a href="courses.php">You seemed to have no course enrollments </a></h2>
+            <?php endif; ?>  
 
         </table>
 
