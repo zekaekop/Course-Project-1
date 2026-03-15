@@ -25,7 +25,7 @@ if (isset($_GET['search'])){
     $query -> execute(["%$search%", "%$search%", "%$search%", "%$search%", "%$search%", "%$search%"]);
     $courses = $query -> fetchAll();
 
-    if($user['role'] == "teacher" || $user['role' == "admin"]){
+    if($user['role'] == "teacher" || $user['role']== "admin"){
         $query = $pdo -> query("SELECT * FROM course_project.categories");
         $categories = $query -> fetchAll();
 
@@ -38,7 +38,7 @@ if (isset($_GET['search'])){
                                             JOIN course_project.teachers t ON co.teacher = t.teacher_id ");
     $courses = $query -> fetchAll();
 
-    if($user['role'] == "teacher" || $user['role' == "admin"]){
+    if($user['role'] == "teacher" || $user['role']== "admin"){
         $query = $pdo -> query("SELECT * FROM course_project.categories");
         $categories = $query -> fetchAll();
 
@@ -53,6 +53,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     # deleting a course
     if(isset($_POST['delete_submit'])){
         _auth_user();
+
+        $course_id = $_POST['course_id'];
+
+        $query = $pdo->prepare("DELETE FROM course_project.courses WHERE course_id LIKE ?");
+        $result = $query->execute([$course_id]);
+
+        header("location: courses.php");
+    }
+
+    # editing courses
+    if(isset($_POST['update'])){
+        _auth_user();
+        
+        $course_id = $_POST['course_id'];
+        $course_name = $_POST['course_name'];
+        $description = $_POST['description'];
+        $category_id = $_POST['category'];
+        $teacher_id = $_POST['teacher'];
+        
+        $query = $pdo->prepare("UPDATE course_project.courses 
+                                                    SET course_name = ?, description = ?, category = ?, teacher = ? 
+                                                    WHERE course_id = ?");
+        $result = $query->execute([$course_name, $description, $category_id, $teacher_id, $course_id]);
+        
+        header("Location: courses.php");
     }
 
     # creating a course
@@ -169,7 +194,7 @@ function _auth_user(){
                 </thead>
             <?php foreach($courses as $course): ?>
                 <tr>
-                    <form method="POST">
+                    
                         <td><?= $course['course_name'] ?></td>
                         <td><?= $course['description'] ?></td>
                         <td><?= $course['category_name'] ?></td>
@@ -177,18 +202,21 @@ function _auth_user(){
                         <td><?= $course['price'] ?></td>
                         <td><?= $course['starting_date'] ?></td>
 
-                        <input type="hidden" name="course_id" value="<?= $course['course_id'] ?>"> <!-- hidden ID, used in enlisting courses-->
+                        
 
                         <td>
                             <?php if($user['role'] != "teacher"): ?>
-                                <button class="btn btn-primary p-0" style="border-radius: 0.5rem;" type="submit" name="signup_submit">Sign Up</button>
+                                <form method="POST">
+                                    <input type="hidden" name="course_id" value="<?= $course['course_id'] ?>"> <!-- hidden ID, used in enlisting courses-->
+                                    <button class="btn btn-primary p-0" style="border-radius: 0.5rem;" type="submit" name="signup_submit">Sign Up</button>
+                                </form>
                             <?php endif ?>
-                            <button class="btn btn-primary p-0" style="border-radius: 0.5rem;">Delete</button>
-                            <button class="btn btn-primary p-0" style="border-radius: 0.5rem;" type="submit" name="edit_submit">Edit</button>
+                            <button class="btn btn-primary p-0" style="border-radius: 0.5rem;" data-bs-toggle="modal" data-bs-target="#deletemodal<?= $course['course_id'] ?>">Delete</button>
+                            <button class="btn btn-primary p-0" style="border-radius: 0.5rem;" data-bs-toggle="modal" data-bs-target="#editmodal<?= $course['course_id'] ?>">Edit</button>
                         </td>
 
-                    </form>
                 </tr>
+
             <?php endforeach ?>
             </table>
 
@@ -199,63 +227,67 @@ function _auth_user(){
 <!-- This is the old modal from the music project -->
 <!-- https://getbootstrap.com/docs/5.3/components/modal/ -->
 <!-- Modal -->
+<?php foreach($courses as $course): ?>
+    <div class="modal fade" id="editmodal<?= $course['course_id']?>">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="" method="POST">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Edit Course</h5>
+                        <button type="button" class="btn-close"  style="background-color: white;"  data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
 
-<div class="modal" id="editModal<?= $course['course_id']?>">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form action="" method="POST">
-                <div class="modal-header">
-                    <h5 class="modal_title">Edit Course</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
+                        <input type="hidden" name="course_id" value="<?= $course['course_id'] ?>" required>
+                        <input type="text" class="form-control text-light" value="<?= $course['course_name'] ?>" required>
+                        <textarea class="w-100" name="description" required><?= $course['description'] ?></textarea>
 
-                    <input type="hidden" name="course_id" value="<?= $course['course_id'] ?>" required>
-                    <input type="text" class="form-control text-light" placeholder="Course Name" name="course_name" value="<?= $course['course_name'] ?>" required>
-                    <input type="text" class="form-control text-light" placeholder="Course Name" name="course_name" value="<?= $course['description'] ?>" required>
-
-                    <select name="category" id="">
-                        <?php foreach($categories as $category): ?>
-                            <option value="<?=$category['category_id'] ?>"><?= $category['category_name'] ?></option>
-                        <?php endforeach ?>
-                    </select>
-                    <select name="teacher" id="">
-                        <?php foreach($teachers as $teacher): ?>
-                            <option value="<?=$teacher['teacher_id'] ?>"><?= $teacher['teacher_name'] ?></option>
-                        <?php endforeach ?>
-                    </select>
-                    
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-primary-custom w-100" type="submit" name="update">Update</button>
-                    <button class="btn btn-primary-custom w-100" data-bs-dismiss="modal">Close</button>
-                </div>
-            </form>
+                        <select name="category" id="">
+                            <?php foreach($categories as $category): ?>
+                                <option value="<?=$category['category_id'] ?>"><?= $category['category_name'] ?></option>
+                            <?php endforeach ?>
+                        </select>
+                        <select name="teacher" id="">
+                            <?php foreach($teachers as $teacher): ?>
+                                <option value="<?=$teacher['teacher_id'] ?>"><?= $teacher['teacher_name'] ?></option>
+                            <?php endforeach ?>
+                        </select>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary w-100" type="submit" name="update">Update</button>
+                        <button class="btn btn-primary w-100" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="modal fade" id="deletemodal<?=$course['course_id']?>" tabindex="-1" aria-labelledby="deletemodallabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h1 class="modal-title fs-5" id="deletemodallabel">Confirm Delete</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="modal fade" id="deletemodal<?=$course['course_id']?>" tabindex="-1" aria-labelledby="deletemodallabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="deletemodallabel">Confirm Delete</h1>
+                <button type="button" class="btn-close" style="background-color: white;" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this?
+            </div>
+            <div class="modal-footer">
+                
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
+                <form method="POST">
+                    <input type="hidden" name="course_id" id="" value=<?=$course['course_id']?>>
+                    <button class="btn btn-primary"  type="submit" name="delete_submit">Delete</button>
+                </form>
+            </div>
+            </div>
         </div>
-        <div class="modal-body">
-            Are you sure you want to delete this?
-        </div>
-        <div class="modal-footer">
-            
-            <button type="button" class="btn btn-primary-custom" data-bs-dismiss="modal">Cancel</button>
-            <form method="POST">
-                <input type="hidden" name="course_id" id="" value=<?=$course['course_id']?>>
-                <button type="button" class="btn btn-primary-custom"  type="submit" name="delete_submit">Delete</button>
-            </form>
-        </div>
-        </div>
+
     </div>
-</div>
+<?php endforeach ?>
 
+<!-- Bootstrap JS and Popper.js -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
