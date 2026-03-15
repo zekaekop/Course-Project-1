@@ -63,19 +63,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 
     # editing courses
-    if(isset($_POST['update'])){
+    if(isset($_POST['update_submit'])){
         _auth_user();
         
         $course_id = $_POST['course_id'];
+
         $course_name = $_POST['course_name'];
         $description = $_POST['description'];
+
         $category_id = $_POST['category'];
         $teacher_id = $_POST['teacher'];
+
+        $price = $_POST['price'];
+
+        $course_starting_date = $_POST['course_starting_date'];
+        $course_starting_time = $_POST['course_starting_time'];
+
+        $course_starting_datetime = $course_starting_date . ' ' . $course_starting_time; # adds both inputs together
         
         $query = $pdo->prepare("UPDATE course_project.courses 
-                                                    SET course_name = ?, description = ?, category = ?, teacher = ? 
+                                                    SET course_name = ?, description = ?, category = ?, teacher = ?, price = ?, starting_date = ?
                                                     WHERE course_id = ?");
-        $result = $query->execute([$course_name, $description, $category_id, $teacher_id, $course_id]);
+        $result = $query->execute([$course_name, $description, $category_id, $teacher_id, $price, $course_starting_datetime, $course_id]);
         
         header("Location: courses.php");
     }
@@ -239,23 +248,27 @@ function _auth_user(){
                     <div class="modal-body">
 
                         <input type="hidden" name="course_id" value="<?= $course['course_id'] ?>" required>
-                        <input type="text" class="form-control text-light" value="<?= $course['course_name'] ?>" required>
+                        <input type="text" class="form-control" name="course_name" value="<?= $course['course_name'] ?>" required>
                         <textarea class="w-100" name="description" required><?= $course['description'] ?></textarea>
 
-                        <select name="category" id="">
+                        <select class="w-100" name="category" id="" required>
                             <?php foreach($categories as $category): ?>
                                 <option value="<?=$category['category_id'] ?>"><?= $category['category_name'] ?></option>
                             <?php endforeach ?>
                         </select>
-                        <select name="teacher" id="">
+                        <select class="w-100" name="teacher" id="" required>
                             <?php foreach($teachers as $teacher): ?>
                                 <option value="<?=$teacher['teacher_id'] ?>"><?= $teacher['teacher_name'] ?></option>
                             <?php endforeach ?>
                         </select>
+
+                        <input type="number" name="price" placeholder="Course Price ..." id="" value="<?= $course['price'] ?>" required>
+                        <input type="date" name="course_starting_date" id="" required>
+                        <input type="time" name="course_starting_time" id="" required>
                         
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-primary w-100" type="submit" name="update">Update</button>
+                        <button class="btn btn-primary w-100" type="submit" name="update_submit">Update</button>
                         <button class="btn btn-primary w-100" data-bs-dismiss="modal">Close</button>
                     </div>
                 </form>
