@@ -9,70 +9,75 @@ $user = $_SESSION['user'];
 $search = '';
 
 # if search isnt emty than do a filter on the table and get results, else just get all data from the table
-if (isset($_GET['search'])){
-    $search =   trim($_GET['search']);
-    $query = $pdo->prepare("SELECT * FROM course_project.users usr
-                            WHERE 
-                            name LIKE ? OR 
-                            role LIKE ? OR
-                            mail LIKE ?");
-    
-    $query -> execute(["%$search%", "%$search%", "%$search%"]);
-    $users = $query -> fetchAll();
+if($user['role'] == "admin"){
+    if (isset($_GET['search'])){
+        $search =   trim($_GET['search']);
+        $query = $pdo->prepare("SELECT * FROM course_project.users usr
+                                WHERE 
+                                name LIKE ? OR 
+                                role LIKE ? OR
+                                mail LIKE ?");
+        
+        $query -> execute(["%$search%", "%$search%", "%$search%"]);
+        $users = $query -> fetchAll();
+    } else {
+        $query = $pdo -> query("SELECT * FROM course_project.users");
+        $users = $query -> fetchAll();
+    }
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST"){
+
+        # deleting a fetched_user
+        if(isset($_POST['delete_submit'])){
+            
+            _auth_user();
+
+            $user_id = $_POST['fetched_user_id'];
+
+            $query = $pdo->prepare("DELETE FROM users WHERE user_id LIKE ?");
+            $result = $query->execute([$user_id]);
+
+            header("location: admin_panel.php");
+        }
+
+        # editing users
+        if(isset($_POST['update_submit'])){
+
+            _auth_user();
+            
+            $user_id = $_POST['fetched_user_id'];
+
+            $edit_fetched_user_name = $_POST['edit_fetched_user_name'];
+            $edit_fetched_user_password = $_POST['edit_fetched_user_password'];
+            $edit_fetched_user_role = $_POST['edit_fetched_user_role'];
+            $edit_fetched_user_mail = $_POST['edit_fetched_user_mail'];
+            
+            $query = $pdo->prepare("UPDATE users SET name = ?, password = ?, role = ?, mail = ? WHERE user_id = ?");
+            $result = $query->execute([$edit_fetched_user_name, $edit_fetched_user_password, $edit_fetched_user_role, $edit_fetched_user_mail, $user_id]);
+            
+            header("Location: admin_panel.php");
+        }
+
+        # creating a fetched_user
+        if(isset($_POST['createfetched_user_submit'])){
+
+            _auth_user();
+
+            $fetched_user_name = $_POST['create_username'];
+
+            $fetched_user_password = $_POST['create_password'];
+            $fetched_user_role = $_POST['create_role'];
+            $fetched_user_mail = $_POST['create_mail'];
+
+            $query = $pdo->prepare("INSERT INTO users (name, password, role, mail) VALUES (?, ?, ?, ?)");
+            $result = $query->execute([$fetched_user_name, $fetched_user_password, $fetched_user_role, $fetched_user_mail]);
+
+            header("Location: admin_panel.php");
+        }
+    }
 } else {
-    $query = $pdo -> query("SELECT * FROM course_project.users");
-    $users = $query -> fetchAll();
-}
-
-if ($_SERVER["REQUEST_METHOD"] == "POST"){
-
-    # deleting a fetched_user
-    if(isset($_POST['delete_submit'])){
-        
-        _auth_user();
-
-        $user_id = $_POST['fetched_user_id'];
-
-        $query = $pdo->prepare("DELETE FROM users WHERE user_id LIKE ?");
-        $result = $query->execute([$user_id]);
-
-        header("location: admin_panel.php");
-    }
-
-    # editing users
-    if(isset($_POST['update_submit'])){
-
-        _auth_user();
-        
-        $user_id = $_POST['fetched_user_id'];
-
-        $edit_fetched_user_name = $_POST['edit_fetched_user_name'];
-        $edit_fetched_user_password = $_POST['edit_fetched_user_password'];
-        $edit_fetched_user_role = $_POST['edit_fetched_user_role'];
-        $edit_fetched_user_mail = $_POST['edit_fetched_user_mail'];
-        
-        $query = $pdo->prepare("UPDATE users SET name = ?, password = ?, role = ?, mail = ? WHERE user_id = ?");
-        $result = $query->execute([$edit_fetched_user_name, $edit_fetched_user_password, $edit_fetched_user_role, $edit_fetched_user_mail, $user_id]);
-        
-        header("Location: admin_panel.php");
-    }
-
-    # creating a fetched_user
-    if(isset($_POST['createfetched_user_submit'])){
-
-        _auth_user();
-
-        $fetched_user_name = $_POST['create_username'];
-
-        $fetched_user_password = $_POST['create_password'];
-        $fetched_user_role = $_POST['create_role'];
-        $fetched_user_mail = $_POST['create_mail'];
-
-        $query = $pdo->prepare("INSERT INTO users (name, password, role, mail) VALUES (?, ?, ?, ?)");
-        $result = $query->execute([$fetched_user_name, $fetched_user_password, $fetched_user_role, $fetched_user_mail]);
-
-        header("Location: admin_panel.php");
-    }
+    header("Location: home.php");
+    exit();
 }
 
 // check if user is logged in
