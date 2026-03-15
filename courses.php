@@ -50,6 +50,11 @@ if (isset($_GET['search'])){
 
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
+    # deleting a course
+    if(isset($_POST['delete_submit'])){
+        _auth_user();
+    }
+
     # creating a course
     if(isset($_POST['createcourse_submit'])){
 
@@ -178,8 +183,8 @@ function _auth_user(){
                             <?php if($user['role'] != "teacher"): ?>
                                 <button class="btn btn-primary p-0" style="border-radius: 0.5rem;" type="submit" name="signup_submit">Sign Up</button>
                             <?php endif ?>
-                            <button class="btn btn-primary p-0" style="border-radius: 0.5rem;" type="submit" name="submit">Delete</button>
-                            <button class="btn btn-primary p-0" style="border-radius: 0.5rem;" type="submit" name="submit">Edit</button>
+                            <button class="btn btn-primary p-0" style="border-radius: 0.5rem;">Delete</button>
+                            <button class="btn btn-primary p-0" style="border-radius: 0.5rem;" type="submit" name="edit_submit">Edit</button>
                         </td>
 
                     </form>
@@ -190,6 +195,67 @@ function _auth_user(){
         </div>
 </div>
 
+
+<!-- This is the old modal from the music project -->
+<!-- https://getbootstrap.com/docs/5.3/components/modal/ -->
+<!-- Modal -->
+
+<div class="modal" id="editModal<?= $course['course_id']?>">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="" method="POST">
+                <div class="modal-header">
+                    <h5 class="modal_title">Edit Course</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+
+                    <input type="hidden" name="course_id" value="<?= $course['course_id'] ?>" required>
+                    <input type="text" class="form-control text-light" placeholder="Course Name" name="course_name" value="<?= $course['course_name'] ?>" required>
+                    <input type="text" class="form-control text-light" placeholder="Course Name" name="course_name" value="<?= $course['description'] ?>" required>
+
+                    <select name="category" id="">
+                        <?php foreach($categories as $category): ?>
+                            <option value="<?=$category['category_id'] ?>"><?= $category['category_name'] ?></option>
+                        <?php endforeach ?>
+                    </select>
+                    <select name="teacher" id="">
+                        <?php foreach($teachers as $teacher): ?>
+                            <option value="<?=$teacher['teacher_id'] ?>"><?= $teacher['teacher_name'] ?></option>
+                        <?php endforeach ?>
+                    </select>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary-custom w-100" type="submit" name="update">Update</button>
+                    <button class="btn btn-primary-custom w-100" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deletemodal<?=$course['course_id']?>" tabindex="-1" aria-labelledby="deletemodallabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="deletemodallabel">Confirm Delete</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            Are you sure you want to delete this?
+        </div>
+        <div class="modal-footer">
+            
+            <button type="button" class="btn btn-primary-custom" data-bs-dismiss="modal">Cancel</button>
+            <form method="POST">
+                <input type="hidden" name="course_id" id="" value=<?=$course['course_id']?>>
+                <button type="button" class="btn btn-primary-custom"  type="submit" name="delete_submit">Delete</button>
+            </form>
+        </div>
+        </div>
+    </div>
+</div>
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

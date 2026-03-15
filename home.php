@@ -21,9 +21,14 @@ if (isset($_GET[$search])){ # Search list
 ?>
 
 <div class="container mt-5">
+
     <h1 class="text-center">Home Page</h1>
+    
+    <hr>
+
     <div class="card w-100 mt-3 text-center">
         <h3>Welcome <?= $user['name'] ?></h3>
+        <hr>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta ex pariatur iure quas tenetur accusantium est laudantium id expedita, autem ea porro quos officiis deleniti, cumque error neque exercitationem praesentium?</p>
     </div>
 
@@ -31,6 +36,8 @@ if (isset($_GET[$search])){ # Search list
 
     <div class="card w-100 mt-3">
         <h3 class="text-center">Enlisted Courses</h3>
+
+        <hr>
 
         <table class="text-center w-100">
             <thead>
@@ -52,6 +59,20 @@ if (isset($_GET[$search])){ # Search list
 
         </table>
 
+    </div>
+
+    <div class="card w-100 mt-3 text-center">
+        <h3>Learn about Cyber Security and Pen testing</h3>
+        <hr>
+        <img class="img-fluid rounded" src="static/img/stock2.webp" alt="">
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta ex pariatur iure quas tenetur accusantium est laudantium id expedita, autem ea porro quos officiis deleniti, cumque error neque exercitationem praesentium?</p>
+    </div>
+
+    <div class="card w-100 mt-3 text-center">
+        <h3>We have many courses on new and upcomming technology courses</h3>
+        <hr>
+        <img  class="img-fluid rounded"  src="static/img/stock1.jpg" alt="">
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta ex pariatur iure quas tenetur accusantium est laudantium id expedita, autem ea porro quos officiis deleniti, cumque error neque exercitationem praesentium?</p>
     </div>
 </div>
 

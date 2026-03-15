@@ -39,7 +39,7 @@ p{
 
 body{
     /*background: var(--bg-grad);*/
-    background-image: url("../img/forest.jpg");
+    background-image: url("../img/purple_abstract_wallpaper.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed; /* This will help the background gradient fullscreen */
     background-size: cover;
