@@ -107,21 +107,21 @@ function _auth_user(){
                         <tr>
                             <th>Teacher Name</th>
                             <th>Profesion</th>
-                            <th>Actions</th>
+                            <?php if($user['role'] == "teacher" || $user['role'] == "admin"): ?>
+                                <th>Actions</th>
+                            <?php endif ?>
                         </tr>
                     </thead>
                 <?php foreach($teachers as $teacher): ?>
                     <tr>
                         <td><?= $teacher['teacher_name'] ?></td>
                         <td><?= $teacher['profesion'] ?></td>
-
-                        <td>
-                            <?php if($user['role'] == "teacher" || $user['role'] == "admin"): ?>
+                        <?php if($user['role'] == "teacher" || $user['role'] == "admin"): ?>
+                            <td>
                                 <button class="btn btn-primary p-0 w-100" style="border-radius: 0.5rem;" data-bs-toggle="modal" data-bs-target="#deletemodal<?= $teacher['teacher_id'] ?>">Delete</button>
                                 <button class="btn btn-primary p-0 w-100" style="border-radius: 0.5rem;" data-bs-toggle="modal" data-bs-target="#editmodal<?= $teacher['teacher_id'] ?>">Edit</button>
-                            <?php endif ?>
-                        </td>
-
+                            </td>
+                        <?php endif ?>
                     </tr>
                 <?php endforeach ?>
                 </table>

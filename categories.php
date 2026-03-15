@@ -102,18 +102,20 @@ function _auth_user(){
                     <thead>
                         <tr>
                             <th>Category Name</th>
-                            <th>Actions</th>
+                            <?php if($user['role'] == "teacher" || $user['role'] == "admin"): ?>
+                                <th>Actions</th>
+                            <?php endif ?>
                         </tr>
                     </thead>
                 <?php foreach($categories as $category): ?>
                     <tr>
                         <td><?= $category['category_name'] ?></td>
-                        <td>
-                            <?php if($user['role'] == "teacher" || $user['role'] == "admin"): ?>
+                        <?php if($user['role'] == "teacher" || $user['role'] == "admin"): ?>
+                            <td>
                                 <button class="btn btn-primary p-0 w-100" style="border-radius: 0.5rem;" data-bs-toggle="modal" data-bs-target="#deletemodal<?= $category['category_id'] ?>">Delete</button>
                                 <button class="btn btn-primary p-0 w-100" style="border-radius: 0.5rem;" data-bs-toggle="modal" data-bs-target="#editmodal<?= $category['category_id'] ?>">Edit</button>
-                            <?php endif ?>
-                        </td>
+                            </td>
+                        <?php endif ?>
                     </tr>
                 <?php endforeach ?>
                 </table>
