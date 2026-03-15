@@ -107,26 +107,26 @@ function _auth_user(){
 
         <form method="POST">
             <div class="card w-100 mt-3">
-                    <input class="w-100" type="text" name="course_name" placeholder="Course Name Ex. Algebra 101 ..." id="">
+                    <input class="w-100" type="text" name="course_name" placeholder="Course Name Ex. Algebra 101 ..." id="" required>
                     <br>
-                    <textarea class="w-100" name="description" placeholder="Description Ex. Solve Complex Math problems ..." id=""></textarea>
+                    <textarea class="w-100" name="description" placeholder="Description Ex. Solve Complex Math problems ..." id="" required></textarea>
                     <br>
 
                     <div class="d-flex justify-content-between">
-                    <select name="category" id="">
+                    <select name="category" id="" required>
                         <?php foreach($categories as $category): ?>
                             <option value="<?=$category['category_id'] ?>"><?= $category['category_name'] ?></option>
                         <?php endforeach ?>
                     </select>
-                    <select name="teacher" id="">
+                    <select name="teacher" id="" required>
                         <?php foreach($teachers as $teacher): ?>
                             <option value="<?=$teacher['teacher_id'] ?>"><?= $teacher['teacher_name'] ?></option>
                         <?php endforeach ?>
                     </select>
                     
-                    <input type="number" name="price" placeholder="Course Price ..." id="">
-                    <input type="date" name="course_starting_date" id="">
-                    <input type="time" name="course_starting_time" id="">
+                    <input type="number" name="price" placeholder="Course Price ..." id="" required>
+                    <input type="date" name="course_starting_date" id="" required>
+                    <input type="time" name="course_starting_time" id="" required>
                     </div>
             </div>
 
