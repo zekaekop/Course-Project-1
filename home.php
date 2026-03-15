@@ -85,7 +85,7 @@ if (isset($_GET[$search])){ # Search list
     </div>
 
     <div class="card w-100 mt-3 text-center">
-        <h3>We have many courses on new and upcomming technology courses</h3>
+        <h3>We have many courses on new and upcomming technologies</h3>
         <hr>
         <img  class="img-fluid rounded"  src="static/img/stock1.jpg" alt="">
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta ex pariatur iure quas tenetur accusantium est laudantium id expedita, autem ea porro quos officiis deleniti, cumque error neque exercitationem praesentium?</p>
