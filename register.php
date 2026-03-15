@@ -28,18 +28,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     $query =  $pdo->prepare ("SELECT * FROM course_project.users where name = ?;");
     $query -> execute([$name]);
 
-    $user = $query-> fetch();
+    $existing_user = $query-> fetch();
 
     if($password_retry == $password){ 
 
-        if ($user){ 
+        if ($existing_user){ 
             $failed_message = "This account already exists";
         }else{
             // create the user
             $query = $pdo->prepare("INSERT INTO course_project.users (name,password,role,mail) VALUES(?,?,?,?)");
             $query -> execute([$name , $password, $role, $email]);
 
-            $_SESSION['user'] = $user;
+            $query = $pdo->prepare("SELECT * FROM course_project.users WHERE name = ?");
+            $query->execute([$name]);
+            $new_user = $query->fetch();
+
+            $_SESSION['user'] = $new_user;
             header("Location:home.php");
             exit;
         }
