@@ -101,29 +101,31 @@ function _auth_user(){
         <div class="card w-100 mt-3">
             <h3 class="text-center"><b>Available Teachers</b></h3>
 
-            <table class="text-center w-100">
-                <thead>
+            <div class="table-responsive">
+                <table class="text-center w-100">
+                    <thead>
+                        <tr>
+                            <th>Teacher Name</th>
+                            <th>Profesion</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                <?php foreach($teachers as $teacher): ?>
                     <tr>
-                        <th>Teacher Name</th>
-                        <th>Profesion</th>
-                        <th>Actions</th>
+                        <td><?= $teacher['teacher_name'] ?></td>
+                        <td><?= $teacher['profesion'] ?></td>
+
+                        <td>
+                            <?php if($user['role'] == "teacher" || $user['role'] == "admin"): ?>
+                                <button class="btn btn-primary p-0 w-100" style="border-radius: 0.5rem;" data-bs-toggle="modal" data-bs-target="#deletemodal<?= $teacher['teacher_id'] ?>">Delete</button>
+                                <button class="btn btn-primary p-0 w-100" style="border-radius: 0.5rem;" data-bs-toggle="modal" data-bs-target="#editmodal<?= $teacher['teacher_id'] ?>">Edit</button>
+                            <?php endif ?>
+                        </td>
+
                     </tr>
-                </thead>
-            <?php foreach($teachers as $teacher): ?>
-                <tr>
-                    <td><?= $teacher['teacher_name'] ?></td>
-                    <td><?= $teacher['profesion'] ?></td>
-
-                    <td>
-                        <?php if($user['role'] == "teacher" || $user['role'] == "admin"): ?>
-                            <button class="btn btn-primary p-0 w-100" style="border-radius: 0.5rem;" data-bs-toggle="modal" data-bs-target="#deletemodal<?= $teacher['teacher_id'] ?>">Delete</button>
-                            <button class="btn btn-primary p-0 w-100" style="border-radius: 0.5rem;" data-bs-toggle="modal" data-bs-target="#editmodal<?= $teacher['teacher_id'] ?>">Edit</button>
-                        <?php endif ?>
-                    </td>
-
-                </tr>
-            <?php endforeach ?>
-            </table>
+                <?php endforeach ?>
+                </table>
+            </div>
 
         </div>
 </div>

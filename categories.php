@@ -97,25 +97,28 @@ function _auth_user(){
         <div class="card w-100 mt-3">
             <h3 class="text-center"><b>Available Categories</b></h3>
 
-            <table class="text-center w-100">
-                <thead>
+            <div class="table-responsive">
+                <table class="text-center w-100">
+                    <thead>
+                        <tr>
+                            <th>Category Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                <?php foreach($categories as $category): ?>
                     <tr>
-                        <th>Category Name</th>
-                        <th>Actions</th>
+                        <td><?= $category['category_name'] ?></td>
+                        <td>
+                            <?php if($user['role'] == "teacher" || $user['role'] == "admin"): ?>
+                                <button class="btn btn-primary p-0 w-100" style="border-radius: 0.5rem;" data-bs-toggle="modal" data-bs-target="#deletemodal<?= $category['category_id'] ?>">Delete</button>
+                                <button class="btn btn-primary p-0 w-100" style="border-radius: 0.5rem;" data-bs-toggle="modal" data-bs-target="#editmodal<?= $category['category_id'] ?>">Edit</button>
+                            <?php endif ?>
+                        </td>
                     </tr>
-                </thead>
-            <?php foreach($categories as $category): ?>
-                <tr>
-                    <td><?= $category['category_name'] ?></td>
-                    <td>
-                        <?php if($user['role'] == "teacher" || $user['role'] == "admin"): ?>
-                            <button class="btn btn-primary p-0 w-100" style="border-radius: 0.5rem;" data-bs-toggle="modal" data-bs-target="#deletemodal<?= $category['category_id'] ?>">Delete</button>
-                            <button class="btn btn-primary p-0 w-100" style="border-radius: 0.5rem;" data-bs-toggle="modal" data-bs-target="#editmodal<?= $category['category_id'] ?>">Edit</button>
-                        <?php endif ?>
-                    </td>
-                </tr>
-            <?php endforeach ?>
-            </table>
+                <?php endforeach ?>
+                </table>
+            </div>
+
         </div>        
 </div>
 

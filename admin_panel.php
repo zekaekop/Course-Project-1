@@ -117,34 +117,36 @@ function _auth_user(){
         <div class="card w-100 mt-3">
             <h3 class="text-center"><b>Active users</b></h3>
 
-            <table class="text-center w-100">
-                <thead>
+            <div class="table-responsive">
+                <table class="text-center w-100">
+                    <thead>
+                        <tr>
+                            <th>User ID</th>
+                            <th>Username</th>
+                            <th>Password</th>
+                            <th>Role</th>
+                            <th>Mail</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                <?php foreach($users as $fetched_user): ?>
                     <tr>
-                        <th>User ID</th>
-                        <th>Username</th>
-                        <th>Password</th>
-                        <th>Role</th>
-                        <th>Mail</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-            <?php foreach($users as $fetched_user): ?>
-                <tr>
-                        <td><?= $fetched_user['user_id'] ?></td>
-                        <td><?= $fetched_user['name'] ?></td>
-                        <td><?= $fetched_user['password'] ?></td>
-                        <td><?= $fetched_user['role'] ?></td>
-                        <td><?= $fetched_user['mail'] ?></td>
+                            <td><?= $fetched_user['user_id'] ?></td>
+                            <td><?= $fetched_user['name'] ?></td>
+                            <td><?= $fetched_user['password'] ?></td>
+                            <td><?= $fetched_user['role'] ?></td>
+                            <td><?= $fetched_user['mail'] ?></td>
 
-                        <td>
-                        <?php if($user['role'] == "admin"): ?>
-                            <button class="btn btn-primary p-0 w-100" style="border-radius: 0.5rem;" data-bs-toggle="modal" data-bs-target="#deletemodal<?= $fetched_user['user_id'] ?>">Delete</button>
-                            <button class="btn btn-primary p-0 w-100" style="border-radius: 0.5rem;" data-bs-toggle="modal" data-bs-target="#editmodal<?= $fetched_user['user_id'] ?>">Edit</button>
-                        <?php endif ?>
-                        </td>
-                </tr>
-            <?php endforeach ?>
-            </table>
+                            <td>
+                            <?php if($user['role'] == "admin"): ?>
+                                <button class="btn btn-primary p-0 w-100" style="border-radius: 0.5rem;" data-bs-toggle="modal" data-bs-target="#deletemodal<?= $fetched_user['user_id'] ?>">Delete</button>
+                                <button class="btn btn-primary p-0 w-100" style="border-radius: 0.5rem;" data-bs-toggle="modal" data-bs-target="#editmodal<?= $fetched_user['user_id'] ?>">Edit</button>
+                            <?php endif ?>
+                            </td>
+                    </tr>
+                <?php endforeach ?>
+                </table>
+            </div>
 
         </div>
 </div>

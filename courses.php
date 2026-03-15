@@ -162,21 +162,21 @@ function _auth_user(){
                         <textarea class="w-100" name="description" placeholder="Description Ex. Solve Complex Math problems ..." id="" required></textarea>
                         <br>
 
-                        <div class="d-flex justify-content-between">
-                        <select name="category" id="" required>
-                            <?php foreach($categories as $category): ?>
-                                <option value="<?=$category['category_id'] ?>"><?= $category['category_name'] ?></option>
-                            <?php endforeach ?>
-                        </select>
-                        <select name="teacher" id="" required>
-                            <?php foreach($teachers as $teacher): ?>
-                                <option value="<?=$teacher['teacher_id'] ?>"><?= $teacher['teacher_name'] ?></option>
-                            <?php endforeach ?>
-                        </select>
-                        
-                        <input type="number" name="price" placeholder="Course Price ..." id="" required>
-                        <input type="date" name="course_starting_date" id="" required>
-                        <input type="time" name="course_starting_time" id="" required>
+                        <div class="d-flex justify-content-between flex-wrap">
+                            <select name="category" id="" required>
+                                <?php foreach($categories as $category): ?>
+                                    <option value="<?=$category['category_id'] ?>"><?= $category['category_name'] ?></option>
+                                <?php endforeach ?>
+                            </select>
+                            <select name="teacher" id="" required>
+                                <?php foreach($teachers as $teacher): ?>
+                                    <option value="<?=$teacher['teacher_id'] ?>"><?= $teacher['teacher_name'] ?></option>
+                                <?php endforeach ?>
+                            </select>
+                            
+                            <input type="number" name="price" placeholder="Course Price ..." id="" required>
+                            <input type="date" name="course_starting_date" id="" required>
+                            <input type="time" name="course_starting_time" id="" required>
                         </div>
                 </div>
 
@@ -192,64 +192,64 @@ function _auth_user(){
         <div class="card w-100 mt-3">
             <h3 class="text-center"><b>Available Courses</b></h3>
 
-            <table class="text-center w-100">
-                <thead>
-                    <tr>
-                        <th>Course</th>
-                        <th>Description</th>
-                        <th>Category</th>
-                        <th>Teacher</th>
-                        <th>Price</th>
-                        <th>Starting Date</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-            <?php foreach($courses as $course):
+            <div class="table-responsive">
+                <table class="text-center w-100">
+                    <thead>
+                        <tr>
+                            <th>Course</th>
+                            <th>Description</th>
+                            <th>Category</th>
+                            <th>Teacher</th>
+                            <th>Price</th>
+                            <th>Starting Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                <?php foreach($courses as $course):
 
-                $course_id = $course['course_id'];
-                $user_id = $user['user_id'];
-                
-                $checkEnrollment = $pdo->prepare("SELECT * FROM course_project.account_data WHERE course_id = ? AND user_id = ?");
-                $checkEnrollment->execute([$course_id, $user_id]);
-                $enrolled = $checkEnrollment->fetch();
-                
-                $isEnrolled = ($enrolled) ? true : false; # check if enrollment exists
-
-                ?>
-                <tr>
+                    $course_id = $course['course_id'];
+                    $user_id = $user['user_id'];
                     
-                        <td><?= $course['course_name'] ?></td>
-                        <td><?= $course['description'] ?></td>
-                        <td><?= $course['category_name'] ?></td>
-                        <td><?= $course['teacher_name'] ?></td>
-                        <td><?= $course['price'] ?></td>
-                        <td><?= $course['starting_date'] ?></td>
+                    $checkEnrollment = $pdo->prepare("SELECT * FROM course_project.account_data WHERE course_id = ? AND user_id = ?");
+                    $checkEnrollment->execute([$course_id, $user_id]);
+                    $enrolled = $checkEnrollment->fetch();
+                    
+                    $isEnrolled = ($enrolled) ? true : false; # check if enrollment exists
 
+                    ?>
+                    <tr>
                         
+                            <td><?= $course['course_name'] ?></td>
+                            <td><?= $course['description'] ?></td>
+                            <td><?= $course['category_name'] ?></td>
+                            <td><?= $course['teacher_name'] ?></td>
+                            <td><?= $course['price'] ?></td>
+                            <td><?= $course['starting_date'] ?></td>
 
-                        <td>
-                            <!-- The people need a student account to get enrolled into courses -->
-                            <?php if($user['role'] != "teacher" && $user['role'] != "admin"): ?>
-                                <!-- displays enrolled if he is or sign up if he isnt -->
-                                <?php if($isEnrolled == False): ?>
-                                    <form method="POST">
-                                        <input type="hidden" name="course_id" value="<?= $course['course_id'] ?>"> <!-- hidden ID, used in enlisting courses-->
-                                        <button class="btn btn-primary p-0 w-100" style="border-radius: 0.5rem;" type="submit" name="signup_submit">Sign Up</button>
-                                    </form>
+                            <td>
+                                <!-- The people need a student account to get enrolled into courses -->
+                                <?php if($user['role'] != "teacher" && $user['role'] != "admin"): ?>
+                                    <!-- displays enrolled if he is or sign up if he isnt -->
+                                    <?php if($isEnrolled == False): ?>
+                                        <form method="POST">
+                                            <input type="hidden" name="course_id" value="<?= $course['course_id'] ?>"> <!-- hidden ID, used in enlisting courses-->
+                                            <button class="btn btn-primary p-0 w-100" style="border-radius: 0.5rem;" type="submit" name="signup_submit">Sign Up</button>
+                                        </form>
+                                    <?php else: ?>
+                                        <button class="btn btn-primary p-0 w-100" style="border-radius: 0.5rem;">Enrolled</button>
+                                    <?php endif ?>
                                 <?php else: ?>
-                                    <button class="btn btn-primary p-0 w-100" style="border-radius: 0.5rem;">Enrolled</button>
+                                    <button class="btn btn-primary p-0 w-100" style="border-radius: 0.5rem;" data-bs-toggle="modal" data-bs-target="#deletemodal<?= $course['course_id'] ?>">Delete</button>
+                                    <button class="btn btn-primary p-0 w-100" style="border-radius: 0.5rem;" data-bs-toggle="modal" data-bs-target="#editmodal<?= $course['course_id'] ?>">Edit</button>
                                 <?php endif ?>
-                            <?php else: ?>
-                                <button class="btn btn-primary p-0 w-100" style="border-radius: 0.5rem;" data-bs-toggle="modal" data-bs-target="#deletemodal<?= $course['course_id'] ?>">Delete</button>
-                                <button class="btn btn-primary p-0 w-100" style="border-radius: 0.5rem;" data-bs-toggle="modal" data-bs-target="#editmodal<?= $course['course_id'] ?>">Edit</button>
-                            <?php endif ?>
-                        </td>
+                            </td>
 
-                </tr>
+                    </tr>
 
-            <?php endforeach ?>
-            </table>
-
+                <?php endforeach ?>
+                </table>
+            </div>
+            
         </div>
 </div>
 
