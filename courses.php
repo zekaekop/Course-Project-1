@@ -128,6 +128,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         
         if ($checkEnrollment->rowCount() > 0) { # wtf does this do??
             header("Location: course.php");
+            exit();
         }
         
         $currentDateTime = date('Y-m-d H:i:s'); // this is the mysql format i think
@@ -204,7 +205,18 @@ function _auth_user(){
                         <th>Actions</th>
                     </tr>
                 </thead>
-            <?php foreach($courses as $course): ?>
+            <?php foreach($courses as $course):
+
+                $course_id = $course['course_id'];
+                $user_id = $user['user_id'];
+                
+                $checkEnrollment = $pdo->prepare("SELECT * FROM course_project.account_data WHERE course_id = ? AND user_id = ?");
+                $checkEnrollment->execute([$course_id, $user_id]);
+                $enrolled = $checkEnrollment->fetch();
+                
+                $isEnrolled = ($enrolled) ? true : false; # check if enrollment exists
+
+                ?>
                 <tr>
                     
                         <td><?= $course['course_name'] ?></td>
@@ -219,10 +231,15 @@ function _auth_user(){
                         <td>
                             <!-- The people need a student account to get enrolled into courses -->
                             <?php if($user['role'] != "teacher" && $user['role'] != "admin"): ?>
-                                <form method="POST">
-                                    <input type="hidden" name="course_id" value="<?= $course['course_id'] ?>"> <!-- hidden ID, used in enlisting courses-->
-                                    <button class="btn btn-primary p-0 w-100" style="border-radius: 0.5rem;" type="submit" name="signup_submit">Sign Up</button>
-                                </form>
+                                <!-- displays enrolled if he is or sign up if he isnt -->
+                                <?php if($isEnrolled == False): ?>
+                                    <form method="POST">
+                                        <input type="hidden" name="course_id" value="<?= $course['course_id'] ?>"> <!-- hidden ID, used in enlisting courses-->
+                                        <button class="btn btn-primary p-0 w-100" style="border-radius: 0.5rem;" type="submit" name="signup_submit">Sign Up</button>
+                                    </form>
+                                <?php else: ?>
+                                    <button class="btn btn-primary p-0 w-100" style="border-radius: 0.5rem;">Enrolled</button>
+                                <?php endif ?>
                             <?php else: ?>
                                 <button class="btn btn-primary p-0 w-100" style="border-radius: 0.5rem;" data-bs-toggle="modal" data-bs-target="#deletemodal<?= $course['course_id'] ?>">Delete</button>
                                 <button class="btn btn-primary p-0 w-100" style="border-radius: 0.5rem;" data-bs-toggle="modal" data-bs-target="#editmodal<?= $course['course_id'] ?>">Edit</button>
