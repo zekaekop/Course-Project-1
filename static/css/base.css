@@ -45,10 +45,20 @@ body{
     background-attachment: fixed; /* This will help the background gradient fullscreen */
     background-size: cover;
     background-position: center;
+
+    /* font */
+    font-family: "Quicksand";
+    font-optical-sizing: auto;
+    font-weight: 600 !important;
+    font-style: normal;
 }
 
 ul{
     list-style: none;
+}
+
+.text-shadow{
+    text-shadow: 2px 2px 2px black;
 }
 
 table{
@@ -70,30 +80,42 @@ td{
     max-width: 800px;
 }
 
-.card{
-    padding: 1rem;
+/* DO NOT TOUCH THIS CODE, apperantly somehow this will prevent the page from being shifted when transform scaled*/
 
+.card {
+    padding: 1rem;
     border-radius: 0.5rem;
     border: var(--border-color);
     box-shadow: var(--shadow);
     background-color: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(10px);
-
-    scale: 1;
-
-    transition: all ease-in-out 0.1s ;
+    
+    /* Fix for scaling without pushing content */
+    transition: transform 0.2s ease-in-out, border 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    transform-origin: center;
+    will-change: transform;
+    margin: 0 0 0 0; /* Reset margins */
+    position: relative; /* For z-index */
 }
 
-.card:hover{
-    padding: 1rem;
-
-    border-radius: 1rem;
+.card:hover {
     border: var(--border-color-blue);
-    background-color: rgba(0, 0, 0, 0.5);
     box-shadow: var(--shadow-strong);
     backdrop-filter: blur(5px);
+    
+    /* Scale the card */
+    transform: scale(1.05);
+    
+    /* Compensate for the extra space (5% of height) */
+    margin-bottom: calc(-0.05 * var(--card-height, 0px));
+    
+    /* Appear above other cards */
+    z-index: 10;
+}
 
-    scale: 1.05;
+.card-footer,
+.card-header{
+    background-color: rgba(0, 0, 0, 0.2) !important;
 }
 
 .header-custom{

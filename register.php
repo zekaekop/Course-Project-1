@@ -72,8 +72,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         <form method="POST" action="">
             <div class="card">
 
-                <h1 class="text-center text-white">Register</h1>
-                <h5  class="text-center text-white">a account</h5>
+                <h1 class="text-center text-white"><b>Register</b></h1>
+                <h5  class="text-center text-white">an account</h5>
 
                 <hr>
                 
@@ -83,10 +83,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
                 
 
                 <ul class="p-0">
-                    <li><h4 class="text-white">Username</h4><input type="text" name="name" id="" required></li>
-                    <li><h4 class="text-white">Email</h4><input type="text" name="email" id="" required></li>
-                    <li><h4 class="text-white">Password</h4><input type="password" name="password" id="" required></li>
-                    <li><h4 class="text-white">Repeat Password</h4><input type="password" name="password_retry" id="" required></li>
+                    <li><h4 class="text-white"><b>Username</b></h4><input type="text" name="name" placeholder="Username ... " id="" required></li>
+                    <li><h4 class="text-white"><b>Email</b></h4><input type="text" name="email" placeholder="Email ... "   id="" required></li>
+                    <li><h4 class="text-white"><b>Password</b></h4><input type="password" name="password"  placeholder="Password ... " id="" required></li>
+                    <li><h4 class="text-white"><b>Repeat Password</b></h4><input type="password" placeholder="Repeat Password ... "  name="password_retry" id="" required></li>
                 </ul>
 
                 <button class="btn btn-primary w-100" type="submit">

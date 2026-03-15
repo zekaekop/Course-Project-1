@@ -32,20 +32,20 @@ if (isset($_GET[$search])){ # Search list
 
 ?>
 
-<div class="container mt-5">
+<div class="container mt-5 mb-5">
 
-    <h1 class="text-center">Home Page</h1>
+    <h1 class="text-center text-shadow"><b>Home Page</b></h1>
     
-    <hr>
+    <hr class="mt-5">
 
     <div class="card w-100 mt-3 text-center">
-        <h3>Welcome <?= $user['name'] ?></h3>
+        <h3><b>Welcome <?= $user['name'] ?></b></h3>
         <hr>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta ex pariatur iure quas tenetur accusantium est laudantium id expedita, autem ea porro quos officiis deleniti, cumque error neque exercitationem praesentium?</p>
     </div>
 
     <div class="card w-100 mt-3">
-        <h3 class="text-center">Enlisted Courses</h3>
+        <h3 class="text-center"><b>Enlisted Courses</b></h3>
 
         <hr>
 
@@ -77,19 +77,23 @@ if (isset($_GET[$search])){ # Search list
 
     </div>
 
-    <div class="card w-100 mt-3 text-center">
-        <h3>Learn about Cyber Security and Pen testing</h3>
+    <hr>
+
+    <div class="card w-100 mt-3 mb-5 text-center">
+        <h3 class="card-header"><b>Learn about Cyber Security and Pen testing</b></h3>
         <hr>
         <img class="img-fluid rounded" src="static/img/stock2.webp" alt="">
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta ex pariatur iure quas tenetur accusantium est laudantium id expedita, autem ea porro quos officiis deleniti, cumque error neque exercitationem praesentium?</p>
+        <p class="card-footer">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta ex pariatur iure quas tenetur accusantium est laudantium id expedita, autem ea porro quos officiis deleniti, cumque error neque exercitationem praesentium?</p>
     </div>
 
-    <div class="card w-100 mt-3 text-center">
-        <h3>We have many courses on new and upcomming technologies</h3>
+    <div class="card w-100 mt-3 mb-5 text-center">
+        <h3 class="card-header"><b>We have many courses on new and upcomming technologies</b></h3>
         <hr>
         <img  class="img-fluid rounded"  src="static/img/stock1.jpg" alt="">
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta ex pariatur iure quas tenetur accusantium est laudantium id expedita, autem ea porro quos officiis deleniti, cumque error neque exercitationem praesentium?</p>
+        <hr>
+        <p class="card-footer">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta ex pariatur iure quas tenetur accusantium est laudantium id expedita, autem ea porro quos officiis deleniti, cumque error neque exercitationem praesentium?</p>
     </div>
+
 </div>
 
 

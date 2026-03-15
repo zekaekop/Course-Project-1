@@ -79,17 +79,17 @@ function _auth_user(){
 ?>
 
 <div class="container mt-5">
-    <h1 class="text-center">Current Teachers</h1>
+    <h1 class="text-center text-shadow"><b>Current Teachers</b></h1>
 
         <!-- this should only be visiable to teachers and admins -->
          <?php if($user['role'] == "teacher" || $user['role'] == "admin"): ?>
             <form method="POST">
-                <div class="card w-100 mt-3">
+                <div class="card w-100 mt-5">
                         <input class="w-100" type="text" name="teacher_name" placeholder="Teacher Name Ex. Ryan Smith ..." id="" required>
                         <input class="w-100" type="text" name="profesion" placeholder="Teacher Profesion Ex. Programming ..." id="" required>
                 </div>
 
-                <button class="card p-3 mt-3 text-white w-100" style="border-radius: 0.5rem;" type="submit" name="createteacher_submit">Create course</button>
+                <button class="card p-3 mt-3 text-white w-100" style="border-radius: 0.5rem;" type="submit" name="createteacher_submit"><b>Create course</b></button>
 
             </form>
         <?php endif ?>
@@ -99,7 +99,7 @@ function _auth_user(){
         <?php include('search.php'); ?>
 
         <div class="card w-100 mt-3">
-            <h3 class="text-center">Available Teachers</h3>
+            <h3 class="text-center"><b>Available Teachers</b></h3>
 
             <table class="text-center w-100">
                 <thead>

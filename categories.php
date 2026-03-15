@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
     # deleting a category
     if(isset($_POST['delete_submit'])){
-        
+
         _auth_user();
 
         $category_id = $_POST['category_id'];
@@ -76,16 +76,16 @@ function _auth_user(){
 ?>
 
 <div class="container mt-5">
-    <h1 class="text-center">Current Categories</h1>
+    <h1 class="text-center text-shadow"><b>Current Categories</b></h1>
 
         <!-- this should only be visiable to teachers and admins -->
          <?php if($user['role'] == "teacher" || $user['role'] == "admin"): ?>
             <form method="POST">
-                <div class="card w-100 mt-3">
+                <div class="card w-100 mt-5">
                         <input class="w-100" type="text" name="category_name" placeholder="Category Name Ex. Science ..." id="" required>
                 </div>
 
-                <button class="card p-3 mt-3 text-white w-100" style="border-radius: 0.5rem;" type="submit" name="createcategory_submit">Create category</button>
+                <button class="card p-3 mt-3 text-white w-100" style="border-radius: 0.5rem;" type="submit" name="createcategory_submit"><b>Create category</b></button>
 
             </form>
         <?php endif ?>
@@ -95,7 +95,7 @@ function _auth_user(){
         <?php include('search.php'); ?>
 
         <div class="card w-100 mt-3">
-            <h3 class="text-center">Available Categories</h3>
+            <h3 class="text-center"><b>Available Categories</b></h3>
 
             <table class="text-center w-100">
                 <thead>

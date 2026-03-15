@@ -151,12 +151,12 @@ function _auth_user(){
 ?>
 
 <div class="container mt-5">
-    <h1 class="text-center">Current Courses</h1>
+    <h1 class="text-center text-shadow"><b>Current Courses</b></h1>
 
         <!-- this should only be visiable to teachers and admins -->
          <?php if($user['role'] == "teacher" || $user['role'] == "admin"): ?>
             <form method="POST">
-                <div class="card w-100 mt-3">
+                <div class="card w-100 mt-5">
                         <input class="w-100" type="text" name="course_name" placeholder="Course Name Ex. Algebra 101 ..." id="" required>
                         <br>
                         <textarea class="w-100" name="description" placeholder="Description Ex. Solve Complex Math problems ..." id="" required></textarea>
@@ -180,7 +180,7 @@ function _auth_user(){
                         </div>
                 </div>
 
-                <button class="card p-3 mt-3 text-white w-100" style="border-radius: 0.5rem;" type="submit" name="createcourse_submit">Create course</button>
+                <button class="card p-3 mt-3 w-100" style="border-radius: 0.5rem; color:white;" type="submit" name="createcourse_submit"><b>Create course</b></button>
 
             </form>
         <?php endif ?>
@@ -190,7 +190,7 @@ function _auth_user(){
         <?php include('search.php'); ?>
 
         <div class="card w-100 mt-3">
-            <h3 class="text-center">Available Courses</h3>
+            <h3 class="text-center"><b>Available Courses</b></h3>
 
             <table class="text-center w-100">
                 <thead>

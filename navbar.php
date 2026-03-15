@@ -21,23 +21,23 @@ $user = $_SESSION['user'];
 
                     <nav class="d-flex">
                         <ul class="nav w-100">
-                            <li class="nav-item"><a href="home.php" class="nav-link text-selected">Home</a></li>
-                            <li class="nav-item"><a href="courses.php" class="nav-link text-selected">Courses</a></li>
-                            <li class="nav-item"><a href="categories.php" class="nav-link text-selected">Categories</a></li>
-                            <li class="nav-item"><a href="teachers.php" class="nav-link text-selected">Teachers</a></li>
+                            <li class="nav-item"><a href="home.php" class="nav-link text-selected"><b>Home</b></a></li>
+                            <li class="nav-item"><a href="courses.php" class="nav-link text-selected"><b>Courses</b></a></li>
+                            <li class="nav-item"><a href="categories.php" class="nav-link text-selected"><b>Categories</b></a></li>
+                            <li class="nav-item"><a href="teachers.php" class="nav-link text-selected"><b>Teachers</b></a></li>
 
                             <?php if ($user['role'] == "admin"): ?>
                                 <li class="nav-item">
-                                    <a href="admin_panel.php" class="nav-link text-selected">Admin Panel</a>
+                                    <a href="admin_panel.php" class="nav-link text-selected"><b>Admin Panel</b></a>
                                 </li>
                             <?php endif; ?>
 
-                            <li class="nav-item ms-auto"><span class="nav-link text-white"><?= $user['role'] ?></span></li>
+                            <li class="nav-item ms-auto"><span class="nav-link text-white"><b><?= $user['role'] ?></b></span></li>
 
                             <li class="nav-item mt-lg-0 ms-lg-auto">
                                 
                                 <a href="logout.php" class="nav-link text-selected w-100 w-lg-auto">
-                                    Logout
+                                    <b>Logout</b>
                                 </a>
                             </li>
                             
